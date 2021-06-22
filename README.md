@@ -2,23 +2,41 @@
 
 # ESMS - Multi Sms Provider
 
+.NetCore
 
-# On Muhasebe Projesi
-Bu proje küçük ve orta ölçekli işletmelerin finansal kayıtlarını dijital ortamda saklayabilmesi için yapılmıştır.
-Bir işletmenin günlük olarak yaptığı alış-satış takibi, gelir-gider takibi, cari hesap takibi gibi işlemlerini takip edebileceğiniz bir projedir.
+## SmsProvider Usage
 
+```
+PM> Install-Package ESms
+```
 
-# Kullanılan Teknolojiler
-CSharp, Entity Freamwork, Microsoft SQL, Devexpress
-
-# İçerik
-
-Cari Yönetimi
-Stok Yönetimi
-Ürün Yönetimi
-Fatura Ve İrsaliye Yönetimi
-Banka ve Kasa Yönetimi
-Döviz Yönetimi
-Sipariş Yönetimi
+```csharp
+services.AddSingleton<ISmsProviderFactory, SmsProviderFactory>();
+ ```
+ 
+ 
+```
+PM> Injection
+```
 
 
+```csharp
+  private readonly ISmsProvider _smsProvider;
+  public SmsController(ISmsProviderFactory SmsService)
+  {
+      _smsProvider = smsProvider.Create(SmsTypes.NETGSM, "Username", "Password", "TITLE");
+  }
+```
+
+```
+PM> Using
+```
+```csharp
+   public async Task SendSms(string phonenumber, string messagecontent) => await _smsProvider.SendAsync(phonenumber, messagecontent);
+   
+   public async Task<double> GetCredit()  => await _smsProvider.GetCreditAsync();
+    
+```
+
+
+ 
