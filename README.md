@@ -5,7 +5,7 @@
 
 Factory pattern structure written with .net5 for sms services
 
-.NetCore
+ NETGSM,SMSVITRINI,ILETIMERKEZI,MASGSM
 
 ## SmsProvider Usage
 
