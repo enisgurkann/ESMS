@@ -2,6 +2,9 @@
 
 # ESMS - Multi Sms Provider
 
+
+Factory pattern structure written with .net5 for sms services
+
 .NetCore
 
 ## SmsProvider Usage
