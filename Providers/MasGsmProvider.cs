@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EB2B.SMS.Helper;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
@@ -37,6 +38,14 @@ namespace EB2B.SMS.Providers
 
         public async Task SendAsync(string phonenumber, string messagecontent)
         {
+            if (phonenumber is null)
+                throw new ArgumentException("Lütfen geçerli bir telefon numarası giriniz");
+
+            phonenumber = SmsHelper.ClearPhoneNumberText(phonenumber);
+
+            if (phonenumber.Length != 11)
+                throw new ArgumentException("Telefon numarası uyumlu değil : " + phonenumber);
+
             using (var wb = new WebClient())
             {
                 var url = new Uri("http://api.v2.masgsm.com.tr/v2/sms/basic");

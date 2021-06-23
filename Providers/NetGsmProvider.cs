@@ -30,9 +30,16 @@ namespace EB2B.SMS.Providers
 
         public async Task SendAsync(string phonenumber, string messagecontent)
         {
-       
+            if (phonenumber is null)
+                throw new ArgumentException("Lütfen geçerli bir telefon numarası giriniz");
+
+            phonenumber = SmsHelper.ClearPhoneNumberText(phonenumber);
+
             if (phonenumber.Length != 11)
                 throw new ArgumentException("Telefon numarası uyumlu değil : " + phonenumber);
+
+          
+
 
             string dt = "";
             dt += "<?xml version='1.0' encoding='UTF-8'?>";

@@ -23,6 +23,14 @@ namespace EB2B.SMS.Providers
 
         public async Task SendAsync(string phonenumber, string messagecontent)
         {
+            if (phonenumber is null)
+                throw new ArgumentException("Lütfen geçerli bir telefon numarası giriniz");
+
+            phonenumber = SmsHelper.ClearPhoneNumberText(phonenumber);
+
+            if (phonenumber.Length != 11)
+                throw new ArgumentException("Telefon numarası uyumlu değil : " + phonenumber);
+
             string getData = await SmsHelper.Post("http://api.smsvitrini.com/index.php", $"islem=1&user={_username}&pass={_password}&mesaj={messagecontent}&numaralar={phonenumber}&baslik={_title}");
             if (getData == "-1")
                 throw new ArgumentException("Servis Hatası");
